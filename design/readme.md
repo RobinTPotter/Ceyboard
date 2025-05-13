@@ -5,7 +5,7 @@ cardboard cerial box
 
 # picture
 
-![render](./images/render.png)
+![render](./render.png)
 
 # keys c to e
 
