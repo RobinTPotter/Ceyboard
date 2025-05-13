@@ -73,17 +73,25 @@ Black offset 11mm
 
 raspberry pico (1)
 
+a lot of wire from an old network cable, quite colourful
+
 
 # pwm
 
-2, 6, 13 (left)
+2, 6, 12 (left)
 
-28, 22, 18 (right)
+16, 20, 28 (right)
 
 
 # matrix
 
-cols: 3, 4, 5, 7 (orange)
+the idea is the keyboard matrix is wired in rows and columns, the row pins are all set to output and set "high", the column pins are set to input. and the matrix is "scanned".
 
-rows: 9, 10, 11, 15 (green)
+in each scanning cycle, a row is set low, and the columns are read in turn, where a column is "on" for a given row, that switch is pressed, the row is set "high" again and the next row is done.
+
+
+cols: 3, 4, 5, 7 (orange) for reading
+
+rows: 9, 10, 11, 15 (green) for writing low
+
 
