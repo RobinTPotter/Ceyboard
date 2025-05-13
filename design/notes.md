@@ -3,6 +3,10 @@
 cardboard cerial box 
 "ply" means layers which are superglued together
 
+# picture
+
+![render](./images/render.png)
+
 # keys c to e
 
 Key (1.0, 3.0) 5ply x 5
@@ -35,12 +39,14 @@ Black offset 11mm
 "Midcontact" increased to help avoid rubber bands
 "Support" wedges cut by hand and filed with folded sandpaper.
 
-# render
-
-![Alt text](./images/render.png)
-
 
 ## wiring
+
+# picture
+
+
+![diagram](./keyboard.png)
+
 
 6 piezo buzzers
 raspberry pico (1)
