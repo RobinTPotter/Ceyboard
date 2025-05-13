@@ -1,15 +1,25 @@
 ## design
 
-cardboard cerial box 
+cardboard cerial box keyboard. 
 
-"ply" means layers which are superglued together
+this is the 3rd homemade keyboard instrument. first was made from famous purple supermarket loyalty cards, the second, cardboard was flimsier and abandoned.
 
 # picture
 
 ![render](./render.png)
 ![complete render](./complete_render.png)
 
+units are centimetres when it was made in real life.
+
+when making, an obsessive amount of 1cm lengths were measured with a steel ruler and a biro and cut to size.
+
+one finds a rhythm.
+
+around the supports were wound rubber hair braiding bands. went with 3 winds but if 2 works all the better, it only needs to bring the key back to horizontal after pressing.
+
 # keys c to e
+
+"ply" means layers which are superglued together
 
 - Key (1.0, 3.0) 5ply x 5
 - Support (1.0, 1.5) 5ply x 5
@@ -51,19 +61,19 @@ Black offset 11mm
 
 # picture
 
-
 ![diagram](./keyboard.png)
-
 
 6 piezo buzzers
 
 raspberry pico (1)
+
 
 # pwm
 
 2, 6, 13 (left)
 
 28, 22, 18 (right)
+
 
 # matrix
 
