@@ -8,6 +8,7 @@ this is the 3rd homemade keyboard instrument. first was made from famous purple 
 
 ![render](./render.png)
 ![complete render](./complete_render.png)
+![finished](./image.jpg)
 
 units are centimetres when it was made in real life.
 
