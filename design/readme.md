@@ -1,6 +1,6 @@
 ## design
 
-cardboard cerial box keyboard. 
+cardboard cereal box keyboard. 
 
 this is the 3rd homemade keyboard instrument. first was made from famous purple supermarket loyalty cards, the second, cardboard, was flimsier and abandoned.
 
