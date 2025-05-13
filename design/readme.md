@@ -12,6 +12,7 @@ the bottom contact is (for white keys) directly onto a 3ply cardboard base. the 
 
 ![render](./render.png)
 ![complete render](./complete_render.png)
+![finished](./snapped.jpg)
 ![finished](./image.jpg)
 
 units are centimetres when it was made in real life.
