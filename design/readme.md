@@ -4,6 +4,10 @@ cardboard cerial box keyboard.
 
 this is the 3rd homemade keyboard instrument. first was made from famous purple supermarket loyalty cards, the second, cardboard was flimsier and abandoned.
 
+keys are mechanical with rubber bands to ensure key returns to rest. copper foil tape is used as contacts to the underside of each key and curled around to the top to create a point to solder on a signal diode.
+
+the bottom contact is (for white keys) directly onto a 3ply cardboard base. the copper bases for the black keys are joined to the top of the "midcontact" pieces, down the back and out to line up with the black base contacts. are the base contacts are grouped together into rows for the keyboard matrix.
+
 # picture
 
 ![render](./render.png)
