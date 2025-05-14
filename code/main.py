@@ -49,11 +49,12 @@ pwm1.off()
 time.sleep(0.5)
 
 left = [2,6,12]
-right = [16, 20, 28]
+right = [16, 20, 26]
 
 left = [PWMPlayer(l) for l in left]
 right = [PWMPlayer(r) for r in right]
 all = left + right
+
 for a,t in zip(all,[0,7,8,12,16,21]):
     a.freq(110)
     a.duty_u16(int(32000.0 * vol / 100))

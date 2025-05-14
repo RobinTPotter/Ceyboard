@@ -91,7 +91,7 @@ Black offset 11mm
 
 2, 6, 12 (left)
 
-16, 20, 28 (right)
+16, 20, 26 (right)
 
 
 ### matrix
