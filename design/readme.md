@@ -1,12 +1,12 @@
 ## design
 
-cardboard cerial box keyboard. 
+cardboard cereal box keyboard. 
 
-this is the 3rd homemade keyboard instrument. first was made from famous purple supermarket loyalty cards, the second, cardboard was flimsier and abandoned.
+this is the 3rd homemade keyboard instrument. first was made from famous purple supermarket loyalty cards, the second, cardboard, was flimsier and abandoned.
 
 keys are mechanical with rubber bands to ensure key returns to rest. copper foil tape is used as contacts to the underside of each key and curled around to the top to create a point to solder on a signal diode.
 
-the bottom contact is (for white keys) directly onto a 3ply cardboard base. the copper bases for the black keys are joined to the top of the "midcontact" pieces, down the back and out to line up with the black base contacts. are the base contacts are grouped together into rows for the keyboard matrix.
+the bottom contact is (for white keys) stuck directly onto a 3ply cardboard base. the copper bases for the black keys are joined to the top of the "midcontact" pieces, down the back and out to line up with the white base contacts. the base contacts are grouped together into rows for the keyboard matrix, i.e. key bases 1-4, 5-8, 9-12 and 13 by itself. the keys 1,5,9 and 13 are joined _after_ the diode for column 1 and so on.
 
 # picture
 
@@ -21,11 +21,22 @@ when making, an obsessive amount of 1cm lengths were measured with a steel ruler
 
 one finds a rhythm.
 
-around the supports were wound rubber hair braiding bands. went with 3 winds but if 2 works all the better, it only needs to bring the key back to horizontal after pressing.
+around the supports were wound rubber hair braiding bands. went with 3 winds but if 2 works all the better, it only needs to bring the key back to horizontal after pressing. it is a nightmare getting some of the key tops back in after soldering. also proximity to a hot soldering iron snaps them. who knew? several of the supports had to be sliced off the backing board and re-glued.
+
+## physical parts made of cardboard 
+
+the following list the parts needed.
+
+for example Key is the Key top, is made of 5 pieces of cardboard cut from a fake shreddies box 1cm by 3cm for the keys C to E, 5 are needed (so  25 in all)
+
+"ply" means layers which are superglued together
+
+that the support pieces are half the size is convenient and deliberate 
+
+the modelling was done after prototyping was done to better understand the assembly, but at best it helped to confirm the Rest measurements, which, because it's impossible to get all the pieces exactly the same size and layed out perfectly, are out anyway.
 
 # keys c to e
 
-"ply" means layers which are superglued together
 
 - Key (1.0, 3.0) 5ply x 5
 - Support (1.0, 1.5) 5ply x 5
