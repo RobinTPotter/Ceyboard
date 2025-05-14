@@ -10,6 +10,8 @@ class PWMPLayer():
         self.freq_mult = freq_mult
         self.transpose = transpose
         self.freq_random_mult = freq_random_mult
+        self.duty_mult = duty_mult
+        self.duty_offset = duty_offset
     def duty_u16(self, duty):
         self.pwm.duty_u16(int(duty * self.duty_mult + self.duty_offset))
     def freq(self, freq):
