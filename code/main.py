@@ -8,19 +8,19 @@ WAVE_TABLE_SIZE = 100
 SAMPLE_RATE = 4000
 
 keys = {
-    0: {'note': 'C4', 'freq': 261, "on": False},
-    1: {'note': 'Cs4', 'freq': 277, "on": False},
-    2: {'note': 'D4', 'freq': 293, "on": False},
-    3: {'note': 'Ds4', 'freq': 311, "on": False},
-    4: {'note': 'E4', 'freq': 329, "on": False},
-    5: {'note': 'F4', 'freq': 349, "on": False},
-    6: {'note': 'Fs4', 'freq': 369, "on": False},
-    7: {'note': 'G4', 'freq': 392, "on": False},
-    8: {'note': 'Gs4', 'freq': 415, "on": False},
-    9: {'note': 'A4', 'freq': 440, "on": False},
-    10: {'note': 'As4', 'freq': 466, "on": False},
-    11: {'note': 'B4', 'freq': 493, "on": False},
-    12: {'note': 'C5', 'freq': 523, "on": False}
+    0: {'note': 'C4', 'freq': 261, "on": False, "changed": False},
+    1: {'note': 'Cs4', 'freq': 277, "on": False, "changed": False},
+    2: {'note': 'D4', 'freq': 293, "on": False, "changed": False},
+    3: {'note': 'Ds4', 'freq': 311, "on": False, "changed": False},
+    4: {'note': 'E4', 'freq': 329, "on": False, "changed": False},
+    5: {'note': 'F4', 'freq': 349, "on": False, "changed": False},
+    6: {'note': 'Fs4', 'freq': 369, "on": False, "changed": False},
+    7: {'note': 'G4', 'freq': 392, "on": False, "changed": False},
+    8: {'note': 'Gs4', 'freq': 415, "on": False, "changed": False},
+    9: {'note': 'A4', 'freq': 440, "on": False, "changed": False},
+    10: {'note': 'As4', 'freq': 466, "on": False, "changed": False},
+    11: {'note': 'B4', 'freq': 493, "on": False, "changed": False},
+    12: {'note': 'C5', 'freq': 523, "on": False, "changed": False}
 }
 
 # row 0 is note 0,1,2,3
@@ -53,8 +53,15 @@ class Matrix:
             for col_index in self.matrix[row_index]:
                 print(f"scanning col {col_index}")
                 if self.col_pins[col_index] == 0:
-                    self.matrix[row_index][col_index][on] = True
+                    
+                    if self.matrix[row_index][col_index]["on"]:
+                        self.matrix[row_index][col_index]["changed"] = False
+                    else:
+                        self.matrix[row_index][col_index]["changed"] = True
+                    
+                    self.matrix[row_index][col_index]["on"] = True
                     print(f"setting ON {row_index} {col_index} {self.matrix[row_index][col_index]}")
+        return self.keys
 
 
 class PWMPlayer:
@@ -65,8 +72,11 @@ class PWMPlayer:
         self.on = True
         self.amp = 1.0
         self.index = 0
+        self.tick = 0
         self.step = 0
+        self.freq = 440.0
     def freq(self, freq):
+        self.freq = freq
         self.step = freq * WAVE_TABLE_SIZE / SAMPLE_RATE
 
 
@@ -76,9 +86,8 @@ row_pins = [0,1,2,3]
 col_pins = [4,5,6,7]
 matrix = Matrix(row_pins, col_pins, keys)
 
-pwm_pins = [8,9,10,11,12,13]
+pwm_pins = [8]  #,9,10,11,12,13]
 channels = [PWMPlayer(pin) for pin in pwm_pins]  #6 channels
-
 
 
 ff = 440.0
@@ -94,12 +103,33 @@ interval_ms = 1000000 / SAMPLE_RATE
 
 for _ in range(3 * SAMPLE_RATE):
     start_time = utime.ticks_us()
+    
+    # get the keys
+    keys = matrix.scan()[:]
+    
+    # get the keys which are on
+    keys = [ keys[k] for k in keys if keys[k]["on"] ] # keys which are on
+    
+    # cycle through the channels
     for ch in channels:
+    
+        # give channel the frequency needed from key
+        if len(keys)>0:
+            test = keys.pop()
+            ch.freq(test["freq"])
+            if test["changed"]:
+                ch.index = 0
+                ch.tick = 0
+            ch.on = True
+        else:
+            ch.on = False
+            
         if ch.on:
             index = ch.index
             value = int(ch.amp * wave[int(index) % WAVE_TABLE_SIZE])
             ch.pwm.duty_u16(value)
             ch.index = ( index + ch.step ) % WAVE_TABLE_SIZE
+            ch.tick = ch.tick + 1
         else:
             ch.pwm.duty_u16(0)
 
