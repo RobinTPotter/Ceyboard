@@ -56,7 +56,7 @@ class Matrix:
 
 class PWMPlayer:
     def __init__(self, pin):
-        self.pwm = Pin(pin, Pin.OUT)
+        self.pwm = PWM(Pin(pin, Pin.OUT))
         self.pwm.freq(62500)
         self.pwm.duty_u16(0)
         self.on = True
@@ -99,7 +99,7 @@ for _ in range(3 * SAMPLE_RATE):
             ch.index = ( index + ch.step ) % WAVE_TABLE_SIZE
         else:
             ch.pwm.duty_u16(0)
-    
+
     elapsed = utime.ticks_diff(utime.ticks_us(), start)
     utime.sleep_us(elapsed)
 
