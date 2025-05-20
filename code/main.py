@@ -4,9 +4,46 @@ from machine import Pin, PWM
 from random import random
 import math
 
+keys = {
+    0: {'note': 'C4', 'freq': 261},
+    1: {'note': 'Cs4', 'freq': 277},
+    2: {'note': 'D4', 'freq': 293},
+    3: {'note': 'Ds4', 'freq': 311},
+    4: {'note': 'E4', 'freq': 329},
+    5: {'note': 'F4', 'freq': 349},
+    6: {'note': 'Fs4', 'freq': 369},
+    7: {'note': 'G4', 'freq': 392},
+    8: {'note': 'Gs4', 'freq': 415},
+    9: {'note': 'A4', 'freq': 440},
+    10: {'note': 'As4', 'freq': 466},
+    11: {'note': 'B4', 'freq': 493},
+    12: {'note': 'C5', 'freq': 523}
+}
 
-WAVE_TABLE_SIZE = 100
-SAMPLE_RATE = 4000
+# row 0 is note 0,1,2,3
+# row 1 is note 4,5,6,7
+# row 2 is note 8,9,10,11
+# row 3 is note 12,13,14,15
+
+# col 0 is 0,4,8,12
+# col 1 is 1,5,9,13
+# col 2 is 2,6,10,14
+# col 3 is 3,7,11,15
+
+
+class Matrix:
+    def __init__(self,row_pins, col_pins):
+        self.row_pins = [Pin(r, Pin.OUT) for r in row_pins]
+        self.col_pins = [Pin(c, Pin.IN, Pin.PULL_UP) for c in col_pins]
+        self.matrix = {}
+        for rr in range(len(row_pins)):
+            self.matrix[rr] = {}
+            for cc in range(len(col_pins)):
+                index = cc+rr*4
+                self.matrix[rr][cc] = keys[index]
+    def scan(self):
+        pass
+
 
 class PWMPlayer:
     def __init__(self, pin):
@@ -20,11 +57,21 @@ class PWMPlayer:
     def freq(self, freq):
         self.step = freq * WAVE_TABLE_SIZE / SAMPLE_RATE
 
-channels = [PWMPlayer(pin) for pin in [0,1,2,3,4,5]]  #6 channels
 
-ff = 440.0
-for i,ch in enumerate(channels):
-    ch.freq(440 * (5+i)/5)
+# setup
+
+row_pins = [0,1,2,3]
+col_pins = [4,5,6,7]
+matrix = Matrix(row_pins, col_pins)
+
+pwm_pins = [8,9,10,11,12,13]
+channels = [PWMPlayer(pin) for pin in pwm_pins]  #6 channels
+
+
+
+#ff = 440.0
+#for i,ch in enumerate(channels):
+#    ch.freq(440 * (5+i)/5)
 
 # generate wave table
 wave = [
