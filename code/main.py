@@ -4,6 +4,9 @@ from machine import Pin, PWM
 from random import random
 import math
 
+WAVE_TABLE_SIZE = 100
+SAMPLE_RATE = 4000
+
 keys = {
     0: {'note': 'C4', 'freq': 261, "on": False},
     1: {'note': 'Cs4', 'freq': 277, "on": False},
@@ -78,9 +81,9 @@ channels = [PWMPlayer(pin) for pin in pwm_pins]  #6 channels
 
 
 
-#ff = 440.0
-#for i,ch in enumerate(channels):
-#    ch.freq(440 * (5+i)/5)
+ff = 440.0
+for i,ch in enumerate(channels):
+    ch.freq(440 * (5+i)/5)
 
 # generate wave table
 wave = [
