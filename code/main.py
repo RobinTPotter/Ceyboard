@@ -5,19 +5,19 @@ from random import random
 import math
 
 keys = {
-    0: {'note': 'C4', 'freq': 261},
-    1: {'note': 'Cs4', 'freq': 277},
-    2: {'note': 'D4', 'freq': 293},
-    3: {'note': 'Ds4', 'freq': 311},
-    4: {'note': 'E4', 'freq': 329},
-    5: {'note': 'F4', 'freq': 349},
-    6: {'note': 'Fs4', 'freq': 369},
-    7: {'note': 'G4', 'freq': 392},
-    8: {'note': 'Gs4', 'freq': 415},
-    9: {'note': 'A4', 'freq': 440},
-    10: {'note': 'As4', 'freq': 466},
-    11: {'note': 'B4', 'freq': 493},
-    12: {'note': 'C5', 'freq': 523}
+    0: {'note': 'C4', 'freq': 261, "on": False},
+    1: {'note': 'Cs4', 'freq': 277, "on": False},
+    2: {'note': 'D4', 'freq': 293, "on": False},
+    3: {'note': 'Ds4', 'freq': 311, "on": False},
+    4: {'note': 'E4', 'freq': 329, "on": False},
+    5: {'note': 'F4', 'freq': 349, "on": False},
+    6: {'note': 'Fs4', 'freq': 369, "on": False},
+    7: {'note': 'G4', 'freq': 392, "on": False},
+    8: {'note': 'Gs4', 'freq': 415, "on": False},
+    9: {'note': 'A4', 'freq': 440, "on": False},
+    10: {'note': 'As4', 'freq': 466, "on": False},
+    11: {'note': 'B4', 'freq': 493, "on": False},
+    12: {'note': 'C5', 'freq': 523, "on": False}
 }
 
 # row 0 is note 0,1,2,3
@@ -32,17 +32,26 @@ keys = {
 
 
 class Matrix:
-    def __init__(self,row_pins, col_pins):
+    def __init__(self,row_pins, col_pins, keys):
         self.row_pins = [Pin(r, Pin.OUT) for r in row_pins]
         self.col_pins = [Pin(c, Pin.IN, Pin.PULL_UP) for c in col_pins]
         self.matrix = {}
+        self.keys = keys
         for rr in range(len(row_pins)):
             self.matrix[rr] = {}
             for cc in range(len(col_pins)):
                 index = cc+rr*4
                 self.matrix[rr][cc] = keys[index]
     def scan(self):
-        pass
+        for row_index in self.matrix:
+            for r in self.row_pins: r.value(1)
+            self.row_pins[row_index].value(0)
+            print(f"setting row off")
+            for col_index in self.matrix[row_index]:
+                print(f"scanning col {col_index}")
+                if self.col_pins[col_index] == 0:
+                    self.matrix[row_index][col_index][on] = True
+                    print(f"setting ON {row_index} {col_index} {self.matrix[row_index][col_index]}")
 
 
 class PWMPlayer:
@@ -62,7 +71,7 @@ class PWMPlayer:
 
 row_pins = [0,1,2,3]
 col_pins = [4,5,6,7]
-matrix = Matrix(row_pins, col_pins)
+matrix = Matrix(row_pins, col_pins, keys)
 
 pwm_pins = [8,9,10,11,12,13]
 channels = [PWMPlayer(pin) for pin in pwm_pins]  #6 channels
