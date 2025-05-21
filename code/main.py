@@ -7,21 +7,21 @@ import math
 WAVE_TABLE_SIZE = 100
 SAMPLE_RATE = 4000
 
-keys = {
-    0: {'note': 'C4', 'freq': 261, "on": False, "changed": False},
-    1: {'note': 'Cs4', 'freq': 277, "on": False, "changed": False},
-    2: {'note': 'D4', 'freq': 293, "on": False, "changed": False},
-    3: {'note': 'Ds4', 'freq': 311, "on": False, "changed": False},
-    4: {'note': 'E4', 'freq': 329, "on": False, "changed": False},
-    5: {'note': 'F4', 'freq': 349, "on": False, "changed": False},
-    6: {'note': 'Fs4', 'freq': 369, "on": False, "changed": False},
-    7: {'note': 'G4', 'freq': 392, "on": False, "changed": False},
-    8: {'note': 'Gs4', 'freq': 415, "on": False, "changed": False},
-    9: {'note': 'A4', 'freq': 440, "on": False, "changed": False},
-    10: {'note': 'As4', 'freq': 466, "on": False, "changed": False},
-    11: {'note': 'B4', 'freq': 493, "on": False, "changed": False},
-    12: {'note': 'C5', 'freq': 523, "on": False, "changed": False}
-}
+keys = [
+    {'note': 'C4', 'freq': 261, "on": False, "col":0, "row":0, "changed": False},
+    {'note': 'Cs4', 'freq': 277, "on": False, "col":0, "row":1, "changed": False},
+    {'note': 'D4', 'freq': 293, "on": False, "col":0, "row":2, "changed": False},
+    {'note': 'Ds4', 'freq': 311, "on": False, "col":0, "row":3, "changed": False},
+    {'note': 'E4', 'freq': 329, "on": False, "col":1, "row":0, "changed": False},
+    {'note': 'F4', 'freq': 349, "on": False, "col":1, "row":1, "changed": False},
+    {'note': 'Fs4', 'freq': 369, "on": False, "col":1, "row":2, "changed": False},
+    {'note': 'G4', 'freq': 392, "on": False, "col":1, "row":3, "changed": False},
+    {'note': 'Gs4', 'freq': 415, "on": False, "col":2, "row":0, "changed": False},
+    {'note': 'A4', 'freq': 440, "on": False, "col":2, "row":1, "changed": False},
+    {'note': 'As4', 'freq': 466, "on": False, "col":2, "row":2, "changed": False},
+    {'note': 'B4', 'freq': 493, "on": False, "col":2, "row":3, "changed": False},
+    {'note': 'C5', 'freq': 523, "on": False, "col":3, "row":0, "changed": False},
+]
 
 # row 0 is note 0,1,2,3
 # row 1 is note 4,5,6,7
@@ -43,8 +43,7 @@ class Matrix:
         for rr in range(len(row_pins)):
             self.matrix[rr] = {}
             for cc in range(len(col_pins)):
-                index = cc+rr*4
-                self.matrix[rr][cc] = keys[index]
+                self.matrix[rr][cc] = [k for k in keys if k["row"]==rr and k["col"]==cc][0]
     def scan(self):
         for row_index in self.matrix:
             for r in self.row_pins: r.value(1)
@@ -52,15 +51,7 @@ class Matrix:
             print(f"setting row off")
             for col_index in self.matrix[row_index]:
                 print(f"scanning col {col_index}")
-                if self.col_pins[col_index] == 0:
-                    
-                    if self.matrix[row_index][col_index]["on"]:
-                        self.matrix[row_index][col_index]["changed"] = False
-                    else:
-                        self.matrix[row_index][col_index]["changed"] = True
-                    
-                    self.matrix[row_index][col_index]["on"] = True
-                    print(f"setting ON {row_index} {col_index} {self.matrix[row_index][col_index]}")
+                self.matrix[row_index][col_index]["on"] = self.col_pins[col_index].value() == 0:
         return self.keys
 
 
@@ -82,8 +73,8 @@ class PWMPlayer:
 
 # setup
 
-row_pins = [0,1,2,3]
-col_pins = [4,5,6,7]
+row_pins = [12,13,14,15,]
+col_pins = [16,17,18,19,]
 matrix = Matrix(row_pins, col_pins, keys)
 
 pwm_pins = [8]  #,9,10,11,12,13]
