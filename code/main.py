@@ -43,15 +43,17 @@ class Matrix:
         for rr in range(len(row_pins)):
             self.matrix[rr] = {}
             for cc in range(len(col_pins)):
-                self.matrix[rr][cc] = [k for k in keys if k["row"]==rr and k["col"]==cc][0]
+                #print(self.matrix)
+                poss = [k for k in keys if k["row"]==rr and k["col"]==cc]
+                if len(poss)==1: self.matrix[rr][cc] = poss[0]
     def scan(self):
         for row_index in self.matrix:
             for r in self.row_pins: r.value(1)
             self.row_pins[row_index].value(0)
-            print(f"setting row off")
+            #print(f"setting row off")
             for col_index in self.matrix[row_index]:
-                print(f"scanning col {col_index}")
-                self.matrix[row_index][col_index]["on"] = self.col_pins[col_index].value() == 0:
+                #print(f"scanning col {col_index}")
+                self.matrix[row_index][col_index]["on"] = self.col_pins[col_index].value() == 0
         return self.keys
 
 
@@ -73,12 +75,22 @@ class PWMPlayer:
 
 # setup
 
-row_pins = [12,13,14,15,]
+row_pins = [11,13,14,15,]
 col_pins = [16,17,18,19,]
 matrix = Matrix(row_pins, col_pins, keys)
 
 pwm_pins = [8]  #,9,10,11,12,13]
 channels = [PWMPlayer(pin) for pin in pwm_pins]  #6 channels
+
+tick=0
+
+while True:
+    keys = matrix.scan()
+    keys = [ k for k in keys if k["on"] ]
+    print(keys)
+    time.sleep(0.5)
+    print (tick)
+    tick=tick+1
 
 
 ff = 440.0
