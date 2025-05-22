@@ -87,8 +87,8 @@ tick=0
 while True:
     keys = matrix.scan()
     keys = [ k for k in keys if k["on"] ]
-    print(keys)
-    time.sleep(0.5)
+    print(len(keys),keys)
+    time.sleep(0.05)
     print (tick)
     tick=tick+1
 
