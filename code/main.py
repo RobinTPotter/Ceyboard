@@ -53,7 +53,10 @@ class Matrix:
             #print(f"setting row off")
             for col_index in self.matrix[row_index]:
                 #print(f"scanning col {col_index}")
+                check = self.matrix[row_index][col_index]["on"]
                 self.matrix[row_index][col_index]["on"] = self.col_pins[col_index].value() == 0
+                if self.matrix[row_index][col_index]["on"] != check: self.keys["changed"] = True
+                else: self.keys["changed"] = False
         return self.keys
 
 
