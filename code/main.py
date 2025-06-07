@@ -4,8 +4,8 @@ from machine import Pin, PWM
 from random import random
 import math
 
-WAVE_TABLE_SIZE = 100
-SAMPLE_RATE = 4000
+WAVE_TABLE_SIZE = 512
+SAMPLE_RATE = 1800 # can 5 with current code
 
 keys = [
     {'note': 'C4', 'freq': 261, "on": False, "col":0, "row":0, "changed": False},
@@ -55,8 +55,8 @@ class Matrix:
                 #print(f"scanning col {col_index}")
                 check = self.matrix[row_index][col_index]["on"]
                 self.matrix[row_index][col_index]["on"] = self.col_pins[col_index].value() == 0
-                if self.matrix[row_index][col_index]["on"] != check: self.keys["changed"] = True
-                else: self.keys["changed"] = False
+                if self.matrix[row_index][col_index]["on"] != check: self.matrix[row_index][col_index]["changed"] = True
+                else: self.matrix[row_index][col_index]["changed"] = False
         return self.keys
 
 
@@ -66,14 +66,14 @@ class PWMPlayer:
         self.pwm.freq(62500)
         self.pwm.duty_u16(0)
         self.on = True
-        self.amp = 1.0
+        self.amp = 0.05
         self.index = 0
         self.tick = 0
         self.step = 0
-        self.freq = 440.0
-    def freq(self, freq):
-        self.freq = freq
-        self.step = freq * WAVE_TABLE_SIZE / SAMPLE_RATE
+        self._freq = 440.0
+    def set_freq(self, freq):
+        self._freq = freq
+        self.step = self._freq * WAVE_TABLE_SIZE / SAMPLE_RATE
 
 
 # setup
@@ -82,23 +82,12 @@ row_pins = [11,13,14,15,]
 col_pins = [16,17,18,19,]
 matrix = Matrix(row_pins, col_pins, keys)
 
-pwm_pins = [8]  #,9,10,11,12,13]
+pwm_pins = [0,1,2,3]#,1,2]  #,9,10,11,12,13]
 channels = [PWMPlayer(pin) for pin in pwm_pins]  #6 channels
+print (channels)
+utime.sleep_us(100000)
 
 tick=0
-
-while True:
-    keys = matrix.scan()
-    keys = [ k for k in keys if k["on"] ]
-    print(len(keys),keys)
-    time.sleep(0.05)
-    print (tick)
-    tick=tick+1
-
-
-ff = 440.0
-for i,ch in enumerate(channels):
-    ch.freq(440 * (5+i)/5)
 
 # generate wave table
 wave = [
@@ -107,29 +96,38 @@ wave = [
 
 interval_ms = 1000000 / SAMPLE_RATE
 
-for _ in range(3 * SAMPLE_RATE):
+#for _ in range(3 * SAMPLE_RATE):
+while True:
+
+
+
     start_time = utime.ticks_us()
     
+    tick +=1
+
+    tick = tick % 100
+
     # get the keys
-    keys = matrix.scan()[:]
-    
-    # get the keys which are on
-    keys = [ keys[k] for k in keys if keys[k]["on"] ] # keys which are on
-    
+    if tick == 0: 
+        keys = matrix.scan() #[:]
+        #print(keys)
+        # get the keys which are on
+        keys =[ k for k in keys if k["on"] ] # keys which are on
+        #print(keys)
+        for ch in channels:
+            # give channel the frequency needed from key
+            if len(keys)>0:
+                test = keys.pop()
+                ch.set_freq(test["freq"])
+                if test["changed"]:
+                    ch.index = 0
+                    ch.tick = 0
+                ch.on = True
+            else:
+                ch.on = False
+            
     # cycle through the channels
     for ch in channels:
-    
-        # give channel the frequency needed from key
-        if len(keys)>0:
-            test = keys.pop()
-            ch.freq(test["freq"])
-            if test["changed"]:
-                ch.index = 0
-                ch.tick = 0
-            ch.on = True
-        else:
-            ch.on = False
-            
         if ch.on:
             index = ch.index
             value = int(ch.amp * wave[int(index) % WAVE_TABLE_SIZE])
@@ -139,7 +137,11 @@ for _ in range(3 * SAMPLE_RATE):
         else:
             ch.pwm.duty_u16(0)
 
-    elapsed = utime.ticks_diff(utime.ticks_us(), start)
-    utime.sleep_us(elapsed)
+    elapsed = utime.ticks_diff(utime.ticks_us(), start_time)
+    delay = int(interval_ms - elapsed)
+    if delay > 0:
+        utime.sleep_us(delay)
+    else:
+        if tick==1: print(str(delay) + "!")
 
 
