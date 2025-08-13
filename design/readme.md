@@ -10,7 +10,8 @@ the first (branch keyboard1) did work but the rubber bands atrophied quickly and
 
 the rubber band technique for this allow for reuse more easily
 
-![rubber band 1](./rubber_band1.png)
+![rubber band 1](./rubber-band1.png)
 
-![rubber band 2](./rubber_band2.png)
+![rubber band 2](./rubber-band2.png)
+
 
