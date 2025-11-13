@@ -14,4 +14,8 @@ the rubber band technique for this allow for reuse more easily
 
 ![rubber band 2](./rubber-band2.png)
 
+version 3b design is the bottom contact and the top contact using the rubber band technique and mounted on littke towers
+wire for the bottom because the copper contact strip goes under the lower contact rather than over the top, oppositebto how the last one went
+
+![design v3b](./v3b.jpg)
 
