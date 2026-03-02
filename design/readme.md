@@ -19,3 +19,6 @@ wire for the bottom because the copper contact strip goes under the lower contac
 
 ![design v3b](./v3b.jpg)
 
+four high, 2 high, 1 high.. who knows
+
+![heights](./scr0203.png)
