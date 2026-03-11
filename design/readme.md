@@ -23,6 +23,10 @@ four high, 2 high, 1 high.. who knows
 
 ![heights](./scr0203.png)
 
-not sure about the spacers yet
+
+
+not sure about the spacers yet, but the heights of the spacers is 10mm and 15mm the widths are standard 9mm
+
+
 
 ![sides](./scr1103.png)
