@@ -22,3 +22,7 @@ wire for the bottom because the copper contact strip goes under the lower contac
 four high, 2 high, 1 high.. who knows
 
 ![heights](./scr0203.png)
+
+not sure about the spacers yet
+
+![sides](./scr1103.png)
