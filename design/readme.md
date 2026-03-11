@@ -30,3 +30,19 @@ not sure about the spacers yet, but the heights of the spacers is 10mm and 15mm 
 
 
 ![sides](./scr1103.png)
+
+this is the layout, jkeys soaced by 2.5mm. spacers may be abandoned, in favour of pegs
+
+![layout](./layout.jpg)
+
+need to:
+- sand the key bottoms
+- copper tape the under untact
+- stick tower legs to under contact
+- draw wire guides for partial matrix
+- wire / solder the under contact
+- hole and rubber band the under contact
+- hole the key (?) at top - where does the over wire go?
+
+
+
