@@ -56,6 +56,11 @@ peg holes drilled, top of key contact now underneath and stops short of the hole
 green cross indicates the top key contact end
 
 
+4 little 9x9 platform pieces per key (80)
+6 lnbnpp per 8 accidentals (48) = 128
+need to find wires and diodes (pull of version 1s)
+
+
 
 *WARNING* do not stick the keys down until wire attached
 
