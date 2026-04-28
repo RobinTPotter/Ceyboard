@@ -45,4 +45,17 @@ need to:
 - hole the key (?) at top - where does the over wire go?
 
 
+![final1](./scr2841.png)
+
+
+peg holes drilled, top of key contact now underneath and stops short of the hole
+
+![final2](./scr2842.png)
+
+
+green cross indicates the top key contact end
+
+
+
+*WARNING* do not stick the keys down until wire attached
 
